@@ -13,8 +13,10 @@ export type OnChangeFunc<E extends EventInput = any> = (
   e: React.ChangeEvent<E>
 ) => void;
 
-const useChangeEvent = (input: Input) => {
-  const [value, setValue] = useState<Input>(input);
+export type FilterType<F> = F extends string ? string : F extends number ? number : F;
+
+const useChangeEvent = <T extends Input>(input: FilterType<T>) => {
+  const [value, setValue] = useState<FilterType<T>>(input);
 
   const onChangePrimitive: OnChangeFunc = (e) => {
     const inputValue = convertInputForm(e.target.value);
